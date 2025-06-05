@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "bulding",
+  "ingredients": [
+    {
+      "item": "magnetismmod:electro_magnet_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "magnetismmod:magnet_ingot"
+  }
+}

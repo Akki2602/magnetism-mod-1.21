@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "magnetismmod:block/magnet_deepslate_ore"
+    }
+  }
+}

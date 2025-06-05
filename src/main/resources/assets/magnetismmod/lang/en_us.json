@@ -1,0 +1,10 @@
+{
+  "item.magnetismmod.magnet_ingot": "Magnet Ingot",
+  "item.magnetismmod.entity_magnet_ingot": "Mob Magnet Ingot",
+
+  "itemgroup.magnetismmod.magnetism": "Magnetism",
+  "item.magnetismmod.repulsion_ingot": "Repulsion Ingot",
+
+  "block.magnetismmod.magnet_ore": "Magnet Ore",
+  "block.magnetismmod.magnet_deepslate_ore": "Magnet Deepslate Ore"
+}

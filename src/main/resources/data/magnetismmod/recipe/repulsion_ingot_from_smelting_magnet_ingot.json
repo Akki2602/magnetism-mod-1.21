@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.2,
+  "group": "magnetism",
+  "ingredient": {
+    "item": "magnetismmod:magnet_ingot"
+  },
+  "result": {
+    "id": "magnetismmod:repulsion_ingot"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 50,
+  "experience": 0.2,
+  "group": "magnetism",
+  "ingredient": {
+    "item": "magnetismmod:repulsion_ingot"
+  },
+  "result": {
+    "id": "magnetismmod:entity_magnet_ingot"
+  }
+}

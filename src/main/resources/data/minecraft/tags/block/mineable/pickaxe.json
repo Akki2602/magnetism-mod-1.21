@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "magnetismmod:magnet_ore",
+    "magnetismmod:magnet_deepslate_ore"
+  ]
+}
