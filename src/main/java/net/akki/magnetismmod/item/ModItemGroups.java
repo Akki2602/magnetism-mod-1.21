@@ -3,12 +3,12 @@ package net.akki.magnetismmod.item;
 import net.akki.magnetismmod.MagnetismMod;
 import net.akki.magnetismmod.block.ModBlocks;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
-import net.minecraft.class_1761;
-import net.minecraft.class_1799;
-import net.minecraft.class_2378;
-import net.minecraft.class_2561;
-import net.minecraft.class_2960;
-import net.minecraft.class_7923;
+import net.minecraft.item.Items;
+import net.minecraft.item.ItemStack;
+import net.minecraft.registry.Registry; 
+import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
+import net.minecraft.item.ItemGroups;
 
 public class ModItemGroups {
     public static final class_1761 MAGNETISM_GROUP = class_2378.method_10230(class_7923.field_44687,
