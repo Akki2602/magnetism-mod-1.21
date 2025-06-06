@@ -5,11 +5,16 @@ import net.akki.magnetismmod.item.ModItems;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
+
 import java.util.*;
 
 public class MagnetUseHandler {
@@ -18,107 +23,102 @@ public class MagnetUseHandler {
 
     public static void register() {
         ServerTickEvents.START_SERVER_TICK.register(server -> {
-            for (class_1657 player : server.method_3760().method_14571()) {
-                class_1799 activeItem = player.method_6030();
+            for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
+                ItemStack activeItem = player.getActiveItem();
 
-                if (player.method_6115()) {
-                    UUID uuid = player.method_5667();
+                if (player.isUsingItem()) {
+                    UUID uuid = player.getUuid();
                     int charge = playerChargeMap.getOrDefault(uuid, 0);
                     if (charge < MAX_CHARGE) {
                         charge++;
                         playerChargeMap.put(uuid, charge);
                     }
 
-                    if (activeItem.method_7909() == ModItems.Magnet_Ingot) {
+                    if (activeItem.getItem() == ModItems.Magnet_Ingot) {
                         applyItemAttraction(player, charge);
-                    } else if (activeItem.method_7909() == ModItems.Repulsion_Ingot) {
+                    } else if (activeItem.getItem() == ModItems.Repulsion_Ingot) {
                         applyItemRepulsion(player, charge);
-                    } else if (activeItem.method_7909() == ModItems.Entity_Magnet_Ingot) {
+                    } else if (activeItem.getItem() == ModItems.Entity_Magnet_Ingot) {
                         applyEntityAttraction(player, charge);
                     }
                 } else {
-                    playerChargeMap.remove(player.method_5667());
+                    playerChargeMap.remove(player.getUuid());
                 }
 
-                // Electromagnet block effect near the player
+                // Add block magnetism effect logic here if needed.
             }
-
         });
     }
 
-    private static void applyItemAttraction(class_1657 player, int charge) {
-        class_1937 world = player.method_37908();
+    private static void applyItemAttraction(ServerPlayerEntity player, int charge) {
+        World world = player.getWorld();
         double range = Math.min(6.0 + charge * 0.2, 20.0);
         double strength = Math.min(0.15 + charge * 0.01, 1.0);
 
-        List<class_1542> items = world.method_8390(class_1542.class,
-                player.method_5829().method_1014(range),
-                item -> item.method_5805() && isIronItem(item));
+        List<ItemEntity> items = world.getEntitiesByClass(ItemEntity.class,
+                player.getBoundingBox().expand(range),
+                item -> item.isAlive() && isIronItem(item));
 
-        for (class_1542 item : items) {
-            class_243 pull = player.method_19538().method_1020(item.method_19538()).method_1029().method_1021(strength);
-            item.method_18799(item.method_18798().method_1019(pull));
-            item.field_6037 = true;
+        for (ItemEntity item : items) {
+            Vec3d pull = player.getPos().subtract(item.getPos()).normalize().multiply(strength);
+            item.setVelocity(item.getVelocity().add(pull));
+            item.velocityModified = true;
         }
     }
 
-    private static void applyItemRepulsion(class_1657 player, int charge) {
-        class_1937 world = player.method_37908();
+    private static void applyItemRepulsion(ServerPlayerEntity player, int charge) {
+        World world = player.getWorld();
         double range = Math.min(6.0 + charge * 0.2, 20.0);
         double strength = Math.min(0.15 + charge * 0.01, 1.0);
 
-        List<class_1542> items = world.method_8390(class_1542.class,
-                player.method_5829().method_1014(range),
-                item -> item.method_5805() && isIronItem(item));
+        List<ItemEntity> items = world.getEntitiesByClass(ItemEntity.class,
+                player.getBoundingBox().expand(range),
+                item -> item.isAlive() && isIronItem(item));
 
-        for (class_1542 item : items) {
-            class_243 push = item.method_19538().method_1020(player.method_19538()).method_1029().method_1021(strength);
-            item.method_18799(item.method_18798().method_1019(push));
-            item.field_6037 = true;
+        for (ItemEntity item : items) {
+            Vec3d push = item.getPos().subtract(player.getPos()).normalize().multiply(strength);
+            item.setVelocity(item.getVelocity().add(push));
+            item.velocityModified = true;
         }
     }
 
-    private static void applyEntityAttraction(class_1657 player, int charge) {
-        class_1937 world = player.method_37908();
+    private static void applyEntityAttraction(ServerPlayerEntity player, int charge) {
+        World world = player.getWorld();
         double range = Math.min(6.0 + charge * 0.2, 20.0);
         double strength = Math.min(0.15 + charge * 0.01, 1.0);
 
-        List<class_1309> entities = world.method_8390(class_1309.class,
-                player.method_5829().method_1014(range),
-                entity -> entity.method_5805() && !entity.equals(player));
+        List<LivingEntity> entities = world.getEntitiesByClass(LivingEntity.class,
+                player.getBoundingBox().expand(range),
+                entity -> entity.isAlive() && !entity.equals(player));
 
-        for (class_1309 entity : entities) {
-            class_243 pull = player.method_19538().method_1020(entity.method_19538()).method_1029().method_1021(strength);
-            entity.method_18799(entity.method_18798().method_1019(pull));
-            entity.field_6037 = true;
+        for (LivingEntity entity : entities) {
+            Vec3d pull = player.getPos().subtract(entity.getPos()).normalize().multiply(strength);
+            entity.setVelocity(entity.getVelocity().add(pull));
+            entity.velocityModified = true;
         }
     }
 
+    private static void pullItemsToPos(World world, BlockPos pos, double range, double strength) {
+        Vec3d magnetCenter = Vec3d.ofCenter(pos);
+        List<ItemEntity> items = world.getEntitiesByClass(ItemEntity.class,
+                new Box(pos).expand(range),
+                ItemEntity::isAlive);
 
-
-
-    private static void pullItemsToPos(class_1937 world, class_2338 pos, double range, double strength) {
-        class_243 magnetCenter = class_243.method_24953(pos);
-        List<class_1542> items = world.method_8390(class_1542.class,
-                new net.minecraft.class_238(pos).method_1014(range),
-                item -> item.method_5805());
-
-        for (class_1542 item : items) {
-            class_243 direction = magnetCenter.method_1020(item.method_19538());
-            if (direction.method_1027() == 0) continue;
-            class_243 pullVec = direction.method_1029().method_1021(strength);
-            item.method_18799(item.method_18798().method_1019(pullVec));
-            item.field_6037 = true;
+        for (ItemEntity item : items) {
+            Vec3d direction = magnetCenter.subtract(item.getPos());
+            if (direction.lengthSquared() == 0) continue;
+            Vec3d pullVec = direction.normalize().multiply(strength);
+            item.setVelocity(item.getVelocity().add(pullVec));
+            item.velocityModified = true;
         }
     }
 
-
-    private static boolean isIronItem(class_1542 itemEntity) {
-        String itemName = itemEntity.method_6983().method_7909().toString().toLowerCase();
+    private static boolean isIronItem(ItemEntity itemEntity) {
+        String itemName = itemEntity.getStack().getItem().toString().toLowerCase();
         return itemName.contains("iron") || itemName.contains("magnet");
     }
 
-    public static int getCharge(class_1657 player) {
-        return playerChargeMap.getOrDefault(player.method_5667(), 0);
+    public static int getCharge(ServerPlayerEntity player) {
+        return playerChargeMap.getOrDefault(player.getUuid(), 0);
     }
 }
