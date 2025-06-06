@@ -6,35 +6,36 @@ import net.akki.magnetismmod.item.custom.MagnetIngotItem;
 import net.akki.magnetismmod.item.custom.RepulsionIngotItem;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.Item;
-import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemGroups;
+import net.minecraft.item.Item.Settings;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.Registries;
+import net.minecraft.util.Identifier;
 
 public class ModItems {
-    public static final class_1792 Magnet_Ingot = registerItem("magnet_ingot", new MagnetIngotItem(new class_1792.class_1793().method_7889(1)));
 
-    public static final class_1792 Repulsion_Ingot = registerItem("repulsion_ingot",
-            new RepulsionIngotItem(new class_1792.class_1793().method_7889(1)));
+    public static final Item Magnet_Ingot = registerItem("magnet_ingot",
+            new MagnetIngotItem(new Item.Settings().maxCount(1)));
 
-    public static final class_1792 Entity_Magnet_Ingot = registerItem("entity_magnet_ingot",
-            new EntityMagnetIngotItem(new class_1792.class_1793().method_7889(1).method_24359()));
+    public static final Item Repulsion_Ingot = registerItem("repulsion_ingot",
+            new RepulsionIngotItem(new Item.Settings().maxCount(1)));
 
+    public static final Item Entity_Magnet_Ingot = registerItem("entity_magnet_ingot",
+            new EntityMagnetIngotItem(new Item.Settings().maxCount(1).fireproof()));
 
-
-    private static class_1792 registerItem(String name, class_1792 item) {
-        return class_2378.method_10230(class_7923.field_41178, class_2960.method_60655(MagnetismMod.MOD_ID, name), item);
+    private static Item registerItem(String name, Item item) {
+        return Registry.register(Registries.ITEM, new Identifier(MagnetismMod.MOD_ID, name), item);
     }
 
     public static void registerModItems() {
         MagnetismMod.LOGGER.info("Registering Mod Items for " + MagnetismMod.MOD_ID);
 
-        ItemGroupEvents.modifyEntriesEvent(class_7706.field_41062).register(entries -> {
-            entries.method_45421(Magnet_Ingot);
-        });
-        ItemGroupEvents.modifyEntriesEvent(class_7706.field_41060).register(entries -> {
-            entries.method_45421(ModItems.Entity_Magnet_Ingot);
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(entries -> {
+            entries.add(Magnet_Ingot);
         });
 
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(entries -> {
+            entries.add(Entity_Magnet_Ingot);
+        });
     }
 }
