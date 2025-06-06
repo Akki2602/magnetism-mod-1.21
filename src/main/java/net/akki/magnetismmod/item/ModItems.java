@@ -24,7 +24,7 @@ public class ModItems {
             new EntityMagnetIngotItem(new Item.Settings().maxCount(1).fireproof()));
 
     private static Item registerItem(String name, Item item) {
-        return Registry.register(Registries.ITEM, new Identifier(MagnetismMod.MOD_ID, name), item);
+        return Registry.register(Registries.ITEM, new net.minecraft.util.Identifier(MagnetismMod.MOD_ID, name), item);
     }
 
     public static void registerModItems() {
