@@ -1,10 +1,10 @@
 package net.akki.magnetismmod.util;
 
 import java.util.List;
-import net.minecraft.class_1542;
-import net.minecraft.class_1937;
-import net.minecraft.class_2338;
-import net.minecraft.class_243;
+import net.minecraft.util.ActionResult;
+import net.minecraft.world.World;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 
 public class MagnetUtils {
     public static void attractItems(class_1937 world, class_2338 pos, double range, double strength) {
