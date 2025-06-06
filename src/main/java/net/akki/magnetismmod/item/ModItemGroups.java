@@ -14,7 +14,7 @@ import net.minecraft.item.ItemGroup;
 public class ModItemGroups {
     public static final ItemGroup MAGNETISM_GROUP = Registry.register(
             Registries.ITEM_GROUP,
-            new net.minecraft.util.Identifier(MagnetismMod.MOD_ID, name),
+            Identifier.of(MagnetismMod.MOD_ID, name),
             FabricItemGroup.builder()
                     .icon(() -> new ItemStack(ModItems.Magnet_Ingot))
                     .displayName(Text.translatable("itemgroup.magnetismmod.magnetism"))
