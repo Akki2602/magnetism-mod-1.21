@@ -15,6 +15,8 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
+import net.minecraft.util.Identifier;
+
 import java.util.*;
 
 public class MagnetUseHandler {
