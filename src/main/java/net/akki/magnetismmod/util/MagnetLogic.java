@@ -4,30 +4,31 @@ import java.util.List;
 
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.item.Items;
-import net.minecraft.world.World;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 
 public class MagnetLogic {
 
-    public static void pullIronItems(class_1937 world, class_2338 magnetPos, double range, double stepDistance) {
-        List<class_1542> items = world.method_8390(class_1542.class,
-                new net.minecraft.class_238(magnetPos).method_1014(range),
-                item -> item.method_5805() && item.method_6983().method_7909() == class_1802.field_8620);
+    public static void pullIronItems(World world, BlockPos magnetPos, double range, double stepDistance) {
+        List<ItemEntity> items = world.getEntitiesByClass(ItemEntity.class,
+                new Box(magnetPos).expand(range),
+                item -> item.isAlive() && item.getStack().getItem() == Items.IRON_INGOT);
 
-        class_243 center = class_243.method_24953(magnetPos);
+        Vec3d center = Vec3d.ofCenter(magnetPos);
 
-        for (class_1542 item : items) {
-            class_243 itemPos = item.method_19538();
-            class_243 direction = center.method_1020(itemPos);
-            double distance = direction.method_1033();
+        for (ItemEntity item : items) {
+            Vec3d itemPos = item.getPos();
+            Vec3d direction = center.subtract(itemPos);
+            double distance = direction.length();
 
             // Stop moving if already very close
             if (distance < 0.1) continue;
 
-            class_243 moveStep = direction.method_1029().method_1021(stepDistance);
-            class_243 newPos = itemPos.method_1019(moveStep);
-            item.method_30634(newPos.field_1352, newPos.field_1351, newPos.field_1350);
+            Vec3d moveStep = direction.normalize().multiply(stepDistance);
+            Vec3d newPos = itemPos.add(moveStep);
+            item.updatePosition(newPos.x, newPos.y, newPos.z);
         }
     }
 }
