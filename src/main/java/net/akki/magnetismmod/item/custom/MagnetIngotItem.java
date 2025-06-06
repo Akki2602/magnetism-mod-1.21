@@ -13,6 +13,8 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.entity.ItemEntity;
 import java.util.List;
 
+import net.minecraft.util.Identifier;
+
 public class MagnetIngotItem extends Item {
     public MagnetIngotItem(Settings settings) {
         super(settings);
