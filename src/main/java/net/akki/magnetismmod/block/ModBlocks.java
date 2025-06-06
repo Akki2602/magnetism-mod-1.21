@@ -1,16 +1,14 @@
 package net.akki.magnetismmod.block;
 
 import net.akki.magnetismmod.MagnetismMod;
-import net.minecraft.class_1747;
-import net.minecraft.class_1792;
-import net.minecraft.class_2248;
-import net.minecraft.class_2378;
-import net.minecraft.class_2431;
-import net.minecraft.class_2498;
-import net.minecraft.class_2960;
-import net.minecraft.class_4970;
-import net.minecraft.class_6019;
-import net.minecraft.class_7923;
+import net.minecraft.block.Block;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroups;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.Registries;
+import net.minecraft.util.Identifier;
 
 public class ModBlocks {
 
