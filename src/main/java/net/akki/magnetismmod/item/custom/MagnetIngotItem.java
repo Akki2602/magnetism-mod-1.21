@@ -1,15 +1,15 @@
 package net.akki.magnetismmod.item.custom;
 
 import net.akki.magnetismmod.util.MagnetUseHandler;
-import net.minecraft.class_1268;
-import net.minecraft.class_1271;
-import net.minecraft.class_1309;
-import net.minecraft.class_1542;
-import net.minecraft.class_1657;
-import net.minecraft.class_1792;
-import net.minecraft.class_1799;
-import net.minecraft.class_1937;
-import net.minecraft.class_243;
+import net.minecraft.util.Hand;
+import net.minecraft.util.TypedActionResult;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.util.ActionResult;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.*;
 import java.util.List;
 
