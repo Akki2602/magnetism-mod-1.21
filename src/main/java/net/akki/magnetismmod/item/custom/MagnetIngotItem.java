@@ -28,7 +28,6 @@ public class MagnetIngotItem extends Item {
     }
 
     // Determines how long the item can be used — 200 ticks = 10 seconds
-    @Override
     public int getMaxUseTime(ItemStack stack) {
         return 200;
     }
