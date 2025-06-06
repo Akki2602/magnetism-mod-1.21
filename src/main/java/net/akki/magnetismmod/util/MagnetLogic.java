@@ -1,11 +1,12 @@
 package net.akki.magnetismmod.util;
 
 import java.util.List;
-import net.minecraft.class_1542;
-import net.minecraft.class_1802;
-import net.minecraft.class_1937;
-import net.minecraft.class_2338;
-import net.minecraft.class_243;
+
+import net.minecraft.entity.ItemEntity;
+import net.minecraft.item.Items;
+import net.minecraft.world.World;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 
 public class MagnetLogic {
 
