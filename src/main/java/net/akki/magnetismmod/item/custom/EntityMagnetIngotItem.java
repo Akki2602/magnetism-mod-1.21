@@ -8,6 +8,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.Identifier;
 
 public class EntityMagnetIngotItem extends Item {
     public EntityMagnetIngotItem(Settings settings) {
