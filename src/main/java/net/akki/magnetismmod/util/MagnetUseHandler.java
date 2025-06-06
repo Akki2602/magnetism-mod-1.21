@@ -3,13 +3,13 @@ package net.akki.magnetismmod.util;
 import net.akki.magnetismmod.block.ModBlocks;
 import net.akki.magnetismmod.item.ModItems;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
-import net.minecraft.class_1309;
-import net.minecraft.class_1542;
-import net.minecraft.class_1657;
-import net.minecraft.class_1799;
-import net.minecraft.class_1937;
-import net.minecraft.class_2338;
-import net.minecraft.class_243;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import java.util.*;
 
 public class MagnetUseHandler {
