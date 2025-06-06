@@ -1,12 +1,12 @@
 package net.akki.magnetismmod.item.custom;
 
 import java.util.List;
-import net.minecraft.class_1297;
-import net.minecraft.class_1657;
-import net.minecraft.class_1792;
-import net.minecraft.class_1799;
-import net.minecraft.class_1937;
-import net.minecraft.class_243;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
+import net.minecraft.util.math.Vec3d;
 
 public class RepulsionIngotItem extends class_1792 {
     public RepulsionIngotItem(class_1793 settings) {
