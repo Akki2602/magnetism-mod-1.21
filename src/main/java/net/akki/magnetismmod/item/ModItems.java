@@ -5,11 +5,11 @@ import net.akki.magnetismmod.item.custom.EntityMagnetIngotItem;
 import net.akki.magnetismmod.item.custom.MagnetIngotItem;
 import net.akki.magnetismmod.item.custom.RepulsionIngotItem;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.class_1792;
-import net.minecraft.class_2378;
-import net.minecraft.class_2960;
-import net.minecraft.class_7706;
-import net.minecraft.class_7923;
+import net.minecraft.item.Item;
+import net.minecraft.registry.Registry;
+import net.minecraft.util.Identifier;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemGroups;
 
 public class ModItems {
     public static final class_1792 Magnet_Ingot = registerItem("magnet_ingot", new MagnetIngotItem(new class_1792.class_1793().method_7889(1)));
